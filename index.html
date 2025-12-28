@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EXO TV EPL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #0d0d0d;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: #010093;
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+      font-size: clamp(18px, 5vw, 22px); /* Responsive font size */
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .notice-movies {
+      margin-top: 0;
+      background: #ff0000;
+      color: white;
+      position: relative;
+      padding: 10px 10px 10px 60px; /* Adjusted for notice text */
+      overflow: hidden;
+      border-radius: 7px;
+      font-size: clamp(12px, 3.5vw, 14px); /* Responsive font size */
+    }
+    .notice-movies::after {
+      content: 'Notice:';
+      position: absolute;
+      height: 100%;
+      padding: 0 6px;
+      line-height: 43px;
+      background: green;
+      color: white;
+      font-weight: 600;
+      left: 0;
+      top: 0;
+    }
+
+    .search-bar {
+      padding: 1rem 1.25rem; /* Aligned with channel-grid padding */
+      background: #121212;
+      display: flex;
+      justify-content: center;
+    }
+    .search-bar input {
+      width: 100%;
+      max-width: 600px;
+      padding: 0.6rem 0.8rem; /* Smaller padding for mobile */
+      border: 2px solid #ccc;
+      border-radius: 20px;
+      font-size: clamp(12px, 3.5vw, 14px); /* Responsive font size */
+      outline: none;
+    }
+    .search-bar input:focus {
+      border-color: #ff6600;
+      box-shadow: 0 0 8px rgba(255, 102, 0, 0.4);
+    }
+
+    .channel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Smaller cards */
+      gap: 1rem; /* Reduced gap */
+      padding: 1.25rem; /* Consistent with search-bar */
+    }
+
+    .channel-card {
+      background: #fff;
+      color: #000;
+      padding: 0.6rem; /* Smaller padding */
+      border-radius: 8px; /* Smaller radius */
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .channel-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(0, 230, 118, 0.8);
+    }
+
+    .channel-card img {
+      max-width: 100%;
+      height: 60px; /* Smaller image height */
+      object-fit: contain;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+
+    .channel-card p {
+      font-size: clamp(10px, 3vw, 12px); /* Responsive font size */
+      font-weight: bold;
+      margin: 0;
+    }
+
+    footer {
+      background-color: #00b303;
+      color: #fff;
+      text-align: center;
+      padding: 0.8rem;
+      margin-top: 1rem;
+      font-size: clamp(12px, 3.5vw, 14px);
+    }
+
+    #toast {
+      visibility: hidden;
+      min-width: 180px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 0.8rem;
+      position: fixed;
+      z-index: 1000;
+      left: 50%;
+      bottom: 30px;
+      transform: translateX(-50%);
+      font-size: clamp(12px, 3.5vw, 14px);
+    }
+    #toast.show {
+      visibility: visible;
+      animation: fadein 0.4s, fadeout 0.4s 2.6s;
+    }
+    @keyframes fadein {
+      from { bottom: 0; opacity: 0; }
+      to { bottom: 30px; opacity: 1; }
+    }
+    @keyframes fadeout {
+      from { bottom: 30px; opacity: 1; }
+      to { bottom: 0; opacity: 0; }
+    }
+
+    /* Mobile-specific adjustments */
+    @media (max-width: 600px) {
+      .channel-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* Even smaller cards on mobile */
+        gap: 0.8rem;
+        padding: 1rem;
+      }
+      .search-bar {
+        padding: 0.8rem 1rem;
+      }
+      .search-bar input {
+        padding: 0.5rem 0.7rem;
+        border-radius: 15px;
+      }
+      .channel-card {
+        padding: 0.5rem;
+      }
+      .channel-card img {
+        height: 50px;
+      }
+      .notice-movies {
+        padding: 8px 8px 8px 50px;
+      }
+      .notice-movies::after {
+        line-height: 35px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>XXX CHANNELS📺</header>
+
+  <center>
+    <marquee class="notice-movies" scrollamount="4"> ➤ Download VLC player for these streams to work</marquee>
+  </center>
+<script type="text/javascript">
+	atOptions = {
+		'key' : '7380080f6a1114229ab18e665ea89fe4',
+		'format' : 'iframe',
+		'height' : 60,
+		'width' : 468,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/7380080f6a1114229ab18e665ea89fe4/invoke.js"></script>
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="🔍 Search channels...">
+  </div>
+
+  <main>
+    <div id="otherChannels" class="channel-grid"></div>
+  </main>
+
+  <div id="toast">Opening VLC Player...</div>
+<script type='text/javascript' src='//pl27641086.revenuecpmgate.com/07/79/26/0779265255fc531ab1c5956d85477caa.js'></script>
+  <footer>
+    <span style="color:aqua;"</span>
+  </footer>
+
+  <script>
+    const CHANNELS_URL = "https://raw.githubusercontent.com/hujingguang/ChinaIPTV/refs/heads/main/xxx.m3u8";
+    const channelsGrid = document.getElementById('otherChannels');
+    const searchInput = document.getElementById('searchInput');
+    const toast = document.getElementById('toast');
+
+    const VLC_PACKAGE = "org.videolan.vlc";
+    const VLC_PLAYSTORE = "https://play.google.com/store/apps/details?id=org.videolan.vlc";
+    let allChannels = [];
+
+    function parseM3U(m3uContent) {
+      const lines = m3uContent.split("\n");
+      const channels = [];
+      let currentChannel = {};
+      for (const line of lines) {
+        if (line.startsWith("#EXTINF")) {
+          const logoMatch = line.match(/tvg-logo="(.*?)"/);
+          const nameMatch = line.match(/,(.*)/);
+          if (logoMatch && nameMatch) {
+            currentChannel.logo = logoMatch[1];
+            currentChannel.name = nameMatch[1].trim();
+          }
+        } else if (line.startsWith("http")) {
+          currentChannel.url = line.trim();
+          if (currentChannel.name && currentChannel.url) {
+            channels.push(currentChannel);
+          }
+          currentChannel = {};
+        }
+      }
+      return channels;
+    }
+
+    async function loadChannels() {
+      try {
+        const response = await fetch(CHANNELS_URL);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.text();
+        return parseM3U(data);
+      } catch (error) {
+        console.error("Failed to load channels:", error);
+        showToast("Failed to load channels");
+        return [];
+      }
+    }
+
+    async function initializeChannels() {
+      allChannels = await loadChannels();
+      renderChannels(allChannels);
+    }
+
+    function renderChannels(channelsToRender) {
+      channelsGrid.innerHTML = "";
+      channelsToRender.forEach(channel => {
+        const card = document.createElement("div");
+        card.className = "channel-card";
+        card.innerHTML = `
+          <img src="${channel.logo || 'https://via.placeholder.com/150?text=No+Logo'}" alt="${channel.name}" loading="lazy">
+          <p>${channel.name}</p>
+        `;
+        card.onclick = () => openInVLC(channel.url);
+        channelsGrid.appendChild(card);
+      });
+    }
+
+    function openInVLC(streamUrl) {
+      showToast("Opening VLC Player...");
+      setTimeout(() => {
+        window.location.href =
+          `intent://${streamUrl.replace(/^https?:\/\//, '')}` +
+          `#Intent;package=${VLC_PACKAGE};scheme=http;type=video/*;S.browser_fallback_url=${encodeURIComponent(VLC_PLAYSTORE)};end`;
+      }, 1000);
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 3000);
+    }
+
+    searchInput.addEventListener("input", function () {
+      const query = this.value.toLowerCase().trim();
+      const filtered = allChannels.filter(ch => ch.name.toLowerCase().includes(query));
+      renderChannels(filtered);
+    });
+
+    initializeChannels();
+  </script>
+</body>
+  </html>
