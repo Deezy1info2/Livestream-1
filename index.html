@@ -1,291 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>EXO TV EPL</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      background: #0d0d0d;
-      color: white;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-    }
+<div class="custom-stream-card-widget" style="width:100%; max-width:380px; font-family:system-ui, -apple-system, sans-serif; box-sizing:border-box; margin: 10px auto;">
+    
+    <div onclick="initiateSecurePlaybackWindow('Real Madrid VS Manchester City', 'https://www.youtube.com/embed/dQw4w9WgXcQ', [{&quot;id&quot;:1,&quot;label&quot;:&quot;Server 1&quot;,&quot;url&quot;:&quot;https://www.youtube.com/embed/dQw4w9WgXcQ&quot;},{&quot;id&quot;:2,&quot;label&quot;:&quot;Server 2&quot;,&quot;url&quot;:&quot;https://player.vimeo.com/video/76979871&quot;}])" 
+         style="background:linear-gradient(135deg, #0f172a 0%, #111827 100%); border:1px solid #1f2937; border-radius:16px; padding:20px; box-shadow:0 20px 25px -5px rgba(0,0,0,0.4); cursor:pointer; transition: all 0.2s ease; position:relative;"
+         onmouseover="this.style.borderColor='#f97316'" onmouseout="this.style.borderColor='#1f2937'">
+        
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <span style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#9ca3af; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:200px;">UEFA Champions League</span>
+            <span style="padding:2px 8px; border-radius:4px; font-size:10px; font-weight:800; text-transform:uppercase; background-color:#dc2626; color:#ffffff; tracking-wider:0.05em;">LIVE</span>
+        </div>
+        
+        <div style="display:flex; justify-content:space-between; align-items:center; margin:20px 0;">
+            <div style="display:flex; flex-direction:column; align-items:center; flex:1; text-align:center; min-width:0;">
+                <img src="https://crests.football-data.org/86.png" style="width:56px; height:56px; object-fit:contain; margin-bottom:8px;" alt="Home Logo">
+                <span style="font-size:13px; font-weight:700; color:#ffffff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:100%;">Real Madrid</span>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:center; padding:0 12px;">
+                <span style="font-size:11px; color:#4b5563; font-weight:900; letter-spacing:0.1em;">VS</span>
+                <div style="height:1px; width:24px; background-color:#374151; margin:4px 0;"></div>
+                <span style="font-size:10px; color:#f97316; background-color:rgba(124,45,18,0.2); border:1px solid rgba(154,52,18,0.3); padding:2px 6px; border-radius:4px; font-family:monospace;">90'</span>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:center; flex:1; text-align:center; min-width:0;">
+                <img src="https://crests.football-data.org/65.png" style="width:56px; height:56px; object-fit:contain; margin-bottom:8px;" alt="Away Logo">
+                <span style="font-size:13px; font-weight:700; color:#ffffff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:100%;">Manchester City</span>
+            </div>
+        </div>
 
-    header {
-      background-color: #010093;
-      color: #fff;
-      text-align: center;
-      padding: 2rem;
-      font-size: clamp(18px, 5vw, 22px); /* Responsive font size */
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
+        <div style="text-align:center; font-size:11px; color:#9ca3af; background-color:rgba(3,7,18,0.4); border:1px solid rgba(31,41,55,0.5); padding:8px; border-radius:10px; pointer-events:none;">
+            📅 <span>2026-06-05</span> &nbsp;|&nbsp; 🕒 <span>21:00</span>
+        </div>
+        
+        <div style="text-align:center; margin-top:10px; font-size:10px; color:#f97316; font-weight:600;"><i class="fa-solid fa-play"></i> Tap Card to Stream Live</div>
+    </div>
 
-    .notice-movies {
-      margin-top: 0;
-      background: #ff0000;
-      color: white;
-      position: relative;
-      padding: 10px 10px 10px 60px; /* Adjusted for notice text */
-      overflow: hidden;
-      border-radius: 7px;
-      font-size: clamp(12px, 3.5vw, 14px); /* Responsive font size */
-    }
-    .notice-movies::after {
-      content: 'Notice:';
-      position: absolute;
-      height: 100%;
-      padding: 0 6px;
-      line-height: 43px;
-      background: green;
-      color: white;
-      font-weight: 600;
-      left: 0;
-      top: 0;
-    }
+    <div id="global_player_modal_screen" style="display:none; position:fixed; inset:0; background-color:rgba(0,0,0,0.92); backdrop-filter:blur(10px); z-index:99999; justify-content:center; align-items:center; padding:16px;">
+        <div style="background-color:#111827; border:1px solid #1f2937; border-radius:16px; w-full; max-width:768px; width:100%; overflow:hidden; box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);">
+            <div style="display:flex; justify-content:space-between; align-items:center; background-color:#030712; padding:12px 16px; border-bottom:1px solid #1f2937;">
+                <span id="g_modal_title" style="font-size:12px; font-weight:700; color:#d1d5db; text-transform:uppercase; letter-spacing:0.05em;">Match Stream</span>
+                <button onclick="destroyGlobalPlaybackEngine()" style="background:none; border:none; color:#9ca3af; font-size:20px; cursor:pointer; line-height:1;">&times;</button>
+            </div>
+            <div id="g_video_wrapper" style="position:relative; width:100%; aspect-ratio:16/9; background-color:#000000;">
+                <iframe id="g_modal_iframe" src="" style="position:absolute; width:100%; height:100%; border:0;" 
+                        sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" allowfullscreen="true"></iframe>
+                <button onclick="toggleGlobalFullscreenView()" style="position:absolute; bottom:12px; right:12px; z-index:10; background-color:rgba(0,0,0,0.7); border:1px solid #374151; color:#ffffff; padding:6px 12px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;">⛶ Fullscreen</button>
+            </div>
+            <div style="padding:16px; background-color:#030712; border-t:1px solid #1f2937;">
+                <div style="font-size:11px; font-weight:700; color:#6b7280; text-transform:uppercase; margin-bottom:8px; letter-spacing:0.05em;">Backup Channels List:</div>
+                <div id="g_modal_servers" style="display:flex; flex-wrap:wrap; gap:8px;"></div>
+            </div>
+        </div>
+    </div>
 
-    .search-bar {
-      padding: 1rem 1.25rem; /* Aligned with channel-grid padding */
-      background: #121212;
-      display: flex;
-      justify-content: center;
-    }
-    .search-bar input {
-      width: 100%;
-      max-width: 600px;
-      padding: 0.6rem 0.8rem; /* Smaller padding for mobile */
-      border: 2px solid #ccc;
-      border-radius: 20px;
-      font-size: clamp(12px, 3.5vw, 14px); /* Responsive font size */
-      outline: none;
-    }
-    .search-bar input:focus {
-      border-color: #ff6600;
-      box-shadow: 0 0 8px rgba(255, 102, 0, 0.4);
-    }
-
-    .channel-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Smaller cards */
-      gap: 1rem; /* Reduced gap */
-      padding: 1.25rem; /* Consistent with search-bar */
-    }
-
-    .channel-card {
-      background: #fff;
-      color: #000;
-      padding: 0.6rem; /* Smaller padding */
-      border-radius: 8px; /* Smaller radius */
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
-      text-align: center;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .channel-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(0, 230, 118, 0.8);
-    }
-
-    .channel-card img {
-      max-width: 100%;
-      height: 60px; /* Smaller image height */
-      object-fit: contain;
-      border-radius: 4px;
-      margin-bottom: 0.5rem;
-    }
-
-    .channel-card p {
-      font-size: clamp(10px, 3vw, 12px); /* Responsive font size */
-      font-weight: bold;
-      margin: 0;
-    }
-
-    footer {
-      background-color: #00b303;
-      color: #fff;
-      text-align: center;
-      padding: 0.8rem;
-      margin-top: 1rem;
-      font-size: clamp(12px, 3.5vw, 14px);
-    }
-
-    #toast {
-      visibility: hidden;
-      min-width: 180px;
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 0.8rem;
-      position: fixed;
-      z-index: 1000;
-      left: 50%;
-      bottom: 30px;
-      transform: translateX(-50%);
-      font-size: clamp(12px, 3.5vw, 14px);
-    }
-    #toast.show {
-      visibility: visible;
-      animation: fadein 0.4s, fadeout 0.4s 2.6s;
-    }
-    @keyframes fadein {
-      from { bottom: 0; opacity: 0; }
-      to { bottom: 30px; opacity: 1; }
-    }
-    @keyframes fadeout {
-      from { bottom: 30px; opacity: 1; }
-      to { bottom: 0; opacity: 0; }
-    }
-
-    /* Mobile-specific adjustments */
-    @media (max-width: 600px) {
-      .channel-grid {
-        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* Even smaller cards on mobile */
-        gap: 0.8rem;
-        padding: 1rem;
-      }
-      .search-bar {
-        padding: 0.8rem 1rem;
-      }
-      .search-bar input {
-        padding: 0.5rem 0.7rem;
-        border-radius: 15px;
-      }
-      .channel-card {
-        padding: 0.5rem;
-      }
-      .channel-card img {
-        height: 50px;
-      }
-      .notice-movies {
-        padding: 8px 8px 8px 50px;
-      }
-      .notice-movies::after {
-        line-height: 35px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <header>XXX CHANNELS📺</header>
-
-  <center>
-    <marquee class="notice-movies" scrollamount="4"> ➤ Download VLC player for these streams to work</marquee>
-  </center>
-<script type="text/javascript">
-	atOptions = {
-		'key' : '7380080f6a1114229ab18e665ea89fe4',
-		'format' : 'iframe',
-		'height' : 60,
-		'width' : 468,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/7380080f6a1114229ab18e665ea89fe4/invoke.js"></script>
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="🔍 Search channels...">
-  </div>
-
-  <main>
-    <div id="otherChannels" class="channel-grid"></div>
-  </main>
-
-  <div id="toast">Opening VLC Player...</div>
-<script type='text/javascript' src='//pl27641086.revenuecpmgate.com/07/79/26/0779265255fc531ab1c5956d85477caa.js'></script>
-  <footer>
-    <span style="color:aqua;"</span>
-  </footer>
-
-  <script>
-    const CHANNELS_URL = "https://raw.githubusercontent.com/hujingguang/ChinaIPTV/refs/heads/main/xxx.m3u8";
-    const channelsGrid = document.getElementById('otherChannels');
-    const searchInput = document.getElementById('searchInput');
-    const toast = document.getElementById('toast');
-
-    const VLC_PACKAGE = "org.videolan.vlc";
-    const VLC_PLAYSTORE = "https://play.google.com/store/apps/details?id=org.videolan.vlc";
-    let allChannels = [];
-
-    function parseM3U(m3uContent) {
-      const lines = m3uContent.split("\n");
-      const channels = [];
-      let currentChannel = {};
-      for (const line of lines) {
-        if (line.startsWith("#EXTINF")) {
-          const logoMatch = line.match(/tvg-logo="(.*?)"/);
-          const nameMatch = line.match(/,(.*)/);
-          if (logoMatch && nameMatch) {
-            currentChannel.logo = logoMatch[1];
-            currentChannel.name = nameMatch[1].trim();
-          }
-        } else if (line.startsWith("http")) {
-          currentChannel.url = line.trim();
-          if (currentChannel.name && currentChannel.url) {
-            channels.push(currentChannel);
-          }
-          currentChannel = {};
+    <script>
+        function initiateSecurePlaybackWindow(title, targetStream, streamsCollection) {
+            var modal = document.getElementById('global_player_modal_screen');
+            document.getElementById('g_modal_title').innerText = title;
+            document.getElementById('g_modal_iframe').src = targetStream;
+            
+            var container = document.getElementById('g_modal_servers');
+            container.innerHTML = '';
+            
+            if(streamsCollection && streamsCollection.length > 0) {
+                streamsCollection.forEach(function(stream) {
+                    var isCurrent = stream.url === targetStream;
+                    var btn = document.createElement('button');
+                    btn.innerText = stream.label;
+                    btn.style.padding = '6px 12px';
+                    btn.style.borderRadius = '6px';
+                    btn.style.fontSize = '11px';
+                    btn.style.fontWeight = '700';
+                    btn.style.border = '1px solid ' + (isCurrent ? '#f97316' : '#374151');
+                    btn.style.backgroundColor = isCurrent ? '#ea580c' : '#1f2937';
+                    btn.style.color = '#ffffff';
+                    btn.style.cursor = 'pointer';
+                    btn.onclick = function() {
+                        initiateSecurePlaybackWindow(title, stream.url, streamsCollection);
+                    };
+                    container.appendChild(btn);
+                });
+            }
+            modal.style.display = 'flex';
         }
-      }
-      return channels;
-    }
 
-    async function loadChannels() {
-      try {
-        const response = await fetch(CHANNELS_URL);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const data = await response.text();
-        return parseM3U(data);
-      } catch (error) {
-        console.error("Failed to load channels:", error);
-        showToast("Failed to load channels");
-        return [];
-      }
-    }
+        function destroyGlobalPlaybackEngine() {
+            document.getElementById('g_modal_iframe').src = '';
+            document.getElementById('global_player_modal_screen').style.display = 'none';
+        }
 
-    async function initializeChannels() {
-      allChannels = await loadChannels();
-      renderChannels(allChannels);
-    }
-
-    function renderChannels(channelsToRender) {
-      channelsGrid.innerHTML = "";
-      channelsToRender.forEach(channel => {
-        const card = document.createElement("div");
-        card.className = "channel-card";
-        card.innerHTML = `
-          <img src="${channel.logo || 'https://via.placeholder.com/150?text=No+Logo'}" alt="${channel.name}" loading="lazy">
-          <p>${channel.name}</p>
-        `;
-        card.onclick = () => openInVLC(channel.url);
-        channelsGrid.appendChild(card);
-      });
-    }
-
-    function openInVLC(streamUrl) {
-      showToast("Opening VLC Player...");
-      setTimeout(() => {
-        window.location.href =
-          `intent://${streamUrl.replace(/^https?:\/\//, '')}` +
-          `#Intent;package=${VLC_PACKAGE};scheme=http;type=video/*;S.browser_fallback_url=${encodeURIComponent(VLC_PLAYSTORE)};end`;
-      }, 1000);
-    }
-
-    function showToast(message) {
-      toast.textContent = message;
-      toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 3000);
-    }
-
-    searchInput.addEventListener("input", function () {
-      const query = this.value.toLowerCase().trim();
-      const filtered = allChannels.filter(ch => ch.name.toLowerCase().includes(query));
-      renderChannels(filtered);
-    });
-
-    initializeChannels();
-  </script>
-</body>
-  </html>
+        function toggleGlobalFullscreenView() {
+            var element = document.getElementById('g_video_wrapper');
+            if (!document.fullscreenElement) {
+                if(element.requestFullscreen) { element.requestFullscreen(); }
+                else if(element.webkitRequestFullscreen) { element.webkitRequestFullscreen(); }
+            } else {
+                document.exitFullscreen();
+            }
+        }
+    </script>
+</div>
